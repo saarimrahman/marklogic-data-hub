@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, render, fireEvent, waitForElement } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import NewDataLoadDialog from './new-data-load-dialog';
+import NewLoadDialog from './new-load-dialog';
 import {BrowserRouter} from "react-router-dom";
 import axiosMock from 'axios'
 
@@ -17,11 +17,11 @@ describe('New/edit load data configuration', () => {
     jest.clearAllMocks();
   });
 
-  test('fields non-Delimited Text render', async () => {
-    const { debug, baseElement, queryAllByText, getAllByLabelText, queryAllByPlaceholderText, getByText } = render(<BrowserRouter><NewDataLoadDialog newLoad={true}
+  test('fields non-Delimited Text render', () => {
+    const { baseElement, queryAllByText, getAllByLabelText, queryAllByPlaceholderText, getByText } = render(<BrowserRouter><NewLoadDialog newLoad={true}
                                                            title={'Title'}
                                                            setNewLoad={() => {}}
-                                                           createLoadDataArtifact={() => {}}
+                                                           createLoadArtifact={() => {}}
                                                            stepData={{}}
                                                            canReadWrite={true}
                                                            canReadOnly={false}/></BrowserRouter>);
@@ -46,10 +46,10 @@ describe('New/edit load data configuration', () => {
 
   test('fields with Delimited Text render', () => {
     const stepData = { sourceFormat: 'csv', separator: '||', targetFormat: 'json'};
-    const { baseElement, queryAllByPlaceholderText } = render(<BrowserRouter><NewDataLoadDialog newLoad={true}
+    const { baseElement, queryAllByPlaceholderText } = render(<BrowserRouter><NewLoadDialog newLoad={true}
                                                                                                 title={'Edit Data Load'}
                                                                                                 setNewLoad={() => {}}
-                                                                                                createLoadDataArtifact={() => {}}
+                                                                                                createLoadArtifact={() => {}}
                                                                                                 stepData={stepData}
                                                                                                 canReadWrite={true}
                                                                                                 canReadOnly={false}/></BrowserRouter>);
@@ -69,10 +69,10 @@ describe('New/edit load data configuration', () => {
     const stepData = { name: 'testSetData', sourceFormat: 'json', targetFormat: 'json'};
     let baseElement, findByPlaceholderText;
     await act(async () => {
-      const renderResults = render(<BrowserRouter><NewDataLoadDialog newLoad={true}
+      const renderResults = render(<BrowserRouter><NewLoadDialog newLoad={true}
                                                               title={'Edit Data Load'}
                                                               setNewLoad={() => {}}
-                                                              createLoadDataArtifact={() => {}}
+                                                              createLoadArtifact={() => {}}
                                                               stepData={stepData}
                                                               canReadWrite={true}
                                                               canReadOnly={false}/></BrowserRouter>);
