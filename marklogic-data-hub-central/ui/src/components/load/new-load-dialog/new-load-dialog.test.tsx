@@ -17,8 +17,8 @@ describe('New/edit load data configuration', () => {
     jest.clearAllMocks();
   });
 
-  test('fields non-Delimited Text render', () => {
-    const { baseElement, queryAllByText, getAllByLabelText, queryAllByPlaceholderText, getByText } = render(<BrowserRouter><NewLoadDialog newLoad={true}
+  test('fields non-Delimited Text render', async () => {
+    const { debug, baseElement, queryAllByText, getAllByLabelText, queryAllByPlaceholderText, getByText } = render(<BrowserRouter><NewLoadDialog newLoad={true}
                                                            title={'Title'}
                                                            setNewLoad={() => {}}
                                                            createLoadArtifact={() => {}}
@@ -39,7 +39,7 @@ describe('New/edit load data configuration', () => {
     let tooltip  = getAllByLabelText('icon: question-circle');
     //should be the last field in the form
     fireEvent.mouseOver(tooltip[tooltip.length-1]);
-    waitForElement(() => getByText("The prefix you want for the URIs of the loaded documents. Example: If your prefix is /rawData/ and you load a file called customer1.json, the URI of the loaded document becomes /rawData/customer1.json."));
+    await waitForElement(() => getByText("The prefix you want for the URIs of the loaded documents. Example: If your prefix is /rawData/ and you load a file called customer1.json, the URI of the loaded document becomes /rawData/customer1.json."))
     expect(getByText("Target Format:")).toHaveTextContent('Target Format: *');
     expect(getByText("Output URI Prefix:")).toHaveTextContent('Output URI Prefix:');
   });

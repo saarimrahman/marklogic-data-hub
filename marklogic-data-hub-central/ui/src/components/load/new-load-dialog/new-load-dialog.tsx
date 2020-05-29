@@ -406,10 +406,6 @@ const NewLoadDialog = (props) => {
     if (filenames.indexOf(file.name) === (filenames.length - 1)) {
       try {
         let response = await Axios.get(`/api/steps/ingestion/${stepName}`);
-
-        if (response.status === 200) {
-          // GET API Called in custom request
-        }
       } catch (error) {
         let errorCode = error.response.data.code;
         let message = error.response.data.message;
