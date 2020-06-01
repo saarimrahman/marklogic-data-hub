@@ -1,11 +1,9 @@
-import React, {useContext} from 'react';
-import { render, fireEvent, waitForElement, cleanup } from '@testing-library/react'
+import React from 'react';
+import { render, fireEvent, waitForElement, act, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import {AuthoritiesContext, AuthoritiesService} from '../util/authorities';
 import axiosMock from 'axios';
 import mocks from '../config/mocks.config';
-import authorities from '../config/authorities.config';
-import data from "../config/run.config";
 import Load from "./Load";
 
 jest.mock('axios');
@@ -27,7 +25,9 @@ describe('Load component', () => {
         const authorityService = new AuthoritiesService();
         authorityService.setAuthorities(['readIngestion']);
 
-        const { getByText, getByTitle, getByLabelText, getByTestId, queryByTestId, queryByText, queryByTitle } = render(<AuthoritiesContext.Provider value={authorityService}><Load/></AuthoritiesContext.Provider>);
+        const { getByText, getByTitle, getByLabelText, getByTestId, queryByTestId, queryByText, queryByTitle } = render(
+            <AuthoritiesContext.Provider value={authorityService}><Load/></AuthoritiesContext.Provider>
+        );
 
         expect(await(waitForElement(() => getByLabelText('switch-view-list')))).toBeInTheDocument();
 
@@ -40,11 +40,16 @@ describe('Load component', () => {
         // test 'Add New' button
         expect(queryByText('Add New')).not.toBeInTheDocument();
 
-        await fireEvent.click(getByTestId('testLoad-settings'));
-        expect(await(waitForElement(() => getByText('Target Database:')))).toBeInTheDocument();
+        // test settings
+        await act(async () => {
+            await fireEvent.click(getByTestId('testLoad-settings'));
+        });
+        expect(await(waitForElement(() => getByText('Target Database')))).toBeInTheDocument();
 
         expect(getByText('Save')).toBeDisabled();
-        await fireEvent.click(getByText('Cancel'));
+        await act(async () => {
+            await fireEvent.click(getByText('Cancel'));
+        });
         // test delete
         expect(queryByTestId('testLoad-delete')).not.toBeInTheDocument();
 
@@ -55,10 +60,14 @@ describe('Load component', () => {
         expect(queryByText('Add New')).not.toBeInTheDocument();
 
         // test settings
-        await fireEvent.click(getByLabelText('icon: setting'));
-        expect(await(waitForElement(() => getByText('Target Database:')))).toBeInTheDocument();
+        await act(async () => {
+            await fireEvent.click(getByLabelText('icon: setting'));
+        });
+        expect(await(waitForElement(() => getByText('Target Database')))).toBeInTheDocument();
         expect(getByText('Save')).toBeDisabled();
-        await fireEvent.click(getByText('Cancel'));
+        await act(async () => {
+            await fireEvent.click(getByText('Cancel'));
+        });
 
         // test delete
         expect(queryByTitle('delete')).not.toBeInTheDocument();
@@ -68,7 +77,9 @@ describe('Load component', () => {
         const authorityService = new AuthoritiesService();
         authorityService.setAuthorities(['readIngestion','writeIngestion']);
 
-        const { getByText, getByTitle, getByLabelText, getByTestId } = render(<AuthoritiesContext.Provider value={authorityService}><Load/></AuthoritiesContext.Provider>);
+        const { getByText, getByTitle, getByLabelText, getByTestId } = render(
+            <AuthoritiesContext.Provider value={authorityService}><Load/></AuthoritiesContext.Provider>
+        );
 
         expect(await(waitForElement(() => getByLabelText('switch-view-list')))).toBeInTheDocument();
 
@@ -80,12 +91,17 @@ describe('Load component', () => {
         await fireEvent.click(getByLabelText('switch-view-list'));
         // test 'Add New' button
         expect(getByText('Add New')).toBeInTheDocument();
+
         // test settings
-        await fireEvent.click(getByTestId('testLoad-settings'));
-        expect(await(waitForElement(() => getByText('Target Database:')))).toBeInTheDocument();
+        await act(async () => {
+            fireEvent.click(getByTestId('testLoad-settings'));
+        });
+        expect(await(waitForElement(() => getByText('Target Database')))).toBeInTheDocument();
 
         expect(getByText('Save')).not.toBeDisabled();
-        await fireEvent.click(getByText('Cancel'));
+        await act(async () => {
+            await fireEvent.click(getByText('Cancel'));
+        });
         // test delete
         await fireEvent.click(getByTestId('testLoad-delete'));
         await fireEvent.click(getByText('No'));
@@ -95,13 +111,22 @@ describe('Load component', () => {
         // test 'Add New' button
         expect(getByText('Add New')).toBeInTheDocument();
 
-        await fireEvent.click(getByTestId('testLoad-settings'));
-        expect(await(waitForElement(() => getByText('Target Database:')))).toBeInTheDocument();
+        // test settings
+        await act(async () => {
+            await fireEvent.click(getByLabelText('icon: setting'));
+        });
+        expect(await(waitForElement(() => getByText('Target Database')))).toBeInTheDocument();
         expect(getByText('Save')).not.toBeDisabled();
-        await fireEvent.click(getByText('Cancel'));
+        await act(async () => {
+            await fireEvent.click(getByText('Cancel'));
+        });
+
         // test delete
         await fireEvent.click(getByTestId('testLoad-delete'));
-        await fireEvent.click(getByText('Yes'));
+        await act(async () => {
+            // TODO "Warning: Can't perform a React state update on an unmounted component..."
+            await fireEvent.click(getByText('Yes'));
+        });
         expect(axiosMock.delete).toHaveBeenNthCalledWith(1,'/api/steps/ingestion/testLoad');
     });
 
@@ -109,7 +134,9 @@ describe('Load component', () => {
         const authorityService = new AuthoritiesService();
         authorityService.setAuthorities(['readIngestion','writeIngestion']);
 
-        const { getByText, getAllByText, getByLabelText } = render(<AuthoritiesContext.Provider value={authorityService}><Load/></AuthoritiesContext.Provider>);
+        const { getByText, getAllByText, getByLabelText } = render(
+            <AuthoritiesContext.Provider value={authorityService}><Load/></AuthoritiesContext.Provider>
+        );
 
         expect(await(waitForElement(() => getByLabelText('switch-view-list')))).toBeInTheDocument();
 

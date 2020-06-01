@@ -123,7 +123,7 @@ describe("Entity Tiles component", () => {
       await wait(() => {
           fireEvent.click(getByRole("settings-mapping"));
       })
-      expect(getByText('Batch Size:')).toBeInTheDocument();
-      expect(getByPlaceholderText('Please enter batch size')).toHaveValue('50');
+      expect(getByText('Batch Size')).toBeInTheDocument();
+      expect(getByPlaceholderText('Please enter batch size')).toHaveValue('100');
   });
 });

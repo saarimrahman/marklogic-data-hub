@@ -1,3 +1,9 @@
+const headerContentDefault = `[ "headers": [
+  "validationEnabled": true,
+  "validationParameters": [
+    "min": 0,
+    "max": 10]]]`;
+
 const loads = {"data" :
     [{
       "name": "testLoad",
@@ -64,6 +70,7 @@ const genericSuccess = {
 
 const data = {
     genericSuccess: genericSuccess,
+    headerContentDefault: headerContentDefault,
     flows: flows,
     loads: loads,
     loadsXML: loadsXML,
