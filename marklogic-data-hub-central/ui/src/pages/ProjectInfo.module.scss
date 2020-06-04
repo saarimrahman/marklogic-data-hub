@@ -32,7 +32,7 @@
   color: black;
 }
 
-.addNewButton {
+#downloadProjectFilesButton {
   width:120px;
   font-family: HelveticaNeue;
   font-weight: 500;
@@ -43,7 +43,13 @@
   left: 40%;
 }
 
-.addNewButton:hover {
+#disabledDownloadProjectFilesButton {
+    @extend #downloadProjectFilesButton;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+#downloadProjectFilesButton:hover {
   background-color: #1510A7;
 }
 

@@ -4,6 +4,7 @@ import {Button, Card, Col, Progress, Row} from 'antd';
 import axios from 'axios';
 import {getEnvironment, setEnvironment} from '../util/environment';
 import { UserContext } from '../util/user-context';
+import { AuthoritiesContext } from "../util/authorities";
 
 type EnvInterface = {
     dataHubVersion: string,
@@ -13,6 +14,8 @@ type EnvInterface = {
 
 const ProjectInfo: React.FC = () => {
     let env: EnvInterface = getEnvironment();
+
+    const authorityService = useContext(AuthoritiesContext);
 
     const cardCss: CSSProperties = {backgroundColor: '#F6F8FF', borderColor: '#44499C'};
     const divCss: CSSProperties = {padding: '1em 6em'};
@@ -83,8 +86,11 @@ const ProjectInfo: React.FC = () => {
                             <div>
                                 {<p className={styles.aligncenter}>Download project as .zip file</p>}
                                 <br/>
-                                <Button type="primary" className={styles.addNewButton}
-                                        onClick={download}>Download</Button>
+                                {
+                                    authorityService.canDownloadProjectFiles() ?
+                                        <Button type="primary" id={styles.downloadProjectFilesButton} onClick={download}>Download</Button> :
+                                        <Button type="primary" id={styles.disabledDownloadProjectFilesButton} onClick={(event) => event.preventDefault()}>Download</Button>
+                                }
                             </div>
                         </Card>
                         <br/>
