@@ -47,6 +47,7 @@ const SearchResult: React.FC<Props> = (props) => {
             }
           }
         } else {
+            // todo replace block with primary key identifier
           itemEntityName = Object.keys(contentObject);
           itemEntityProperties = Object.values<any>(contentObject);
           if (itemEntityName.length && props.entityDefArray.length) {
@@ -60,7 +61,7 @@ const SearchResult: React.FC<Props> = (props) => {
             }
           }
         }
-      }); 
+      });
     }
   } else if (props.item.format === 'xml' && props.item.hasOwnProperty('extracted')) {
     props.item.extracted.content.forEach(contentObject => {
@@ -78,6 +79,7 @@ const SearchResult: React.FC<Props> = (props) => {
           }
         }
       } else {
+          // todo replace block with primary key identifier
         itemEntityName = Object.keys(obj);
         itemEntityProperties = Object.values<any>(obj);
         if (itemEntityName.length && props.entityDefArray.length) {
