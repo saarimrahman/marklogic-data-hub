@@ -3,7 +3,7 @@ import { BrowserRouter as Router, MemoryRouter } from 'react-router-dom';
 import {fireEvent, render, waitForElement, wait, cleanup} from '@testing-library/react';
 import { AdvancedSettingsMessages } from '../../../config/messages.config';
 import MappingCard from './mapping-card';
-import axiosMock from 'axios'
+import axiosMock from 'axios';
 import data from "../../../assets/mock-data/flows.data";
 import {act} from "react-dom/test-utils";
 import { AuthoritiesService, AuthoritiesContext } from '../../../util/authorities';
@@ -28,7 +28,7 @@ const getSubElements=(content,node, title)=>{
         child => !hasText(child)
     );
     return nodeHasText && childrenDontHaveText;
-}
+};
 
 describe("Mapping Card component", () => {
   beforeEach(() => {
@@ -124,7 +124,7 @@ describe("Mapping Card component", () => {
     await fireEvent.click(getByText('Yes'));
     expect(deleteMappingArtifact).toBeCalled();
       expect(await(waitForElement(() => getByText((content, node) => {
-          return getSubElements(content, node,"Are you sure you want to delete the Mapping1 step?")
+          return getSubElements(content, node,"Are you sure you want to delete the Mapping1 step?");
       })))).toBeInTheDocument();
   });
 
@@ -187,7 +187,7 @@ describe("Mapping Card component", () => {
                                addStepToNew={noopFun}/></AuthoritiesContext.Provider></Router>);
       await wait(() => {
           fireEvent.click(getByRole("settings-mapping"));
-      })
+      });
       //set permissions without any errors and hit 'Save'
       let targetPermissions = getByPlaceholderText("Please enter target permissions");
       fireEvent.change(targetPermissions, { target: { value: 'role1,read' }});
@@ -201,7 +201,7 @@ describe("Mapping Card component", () => {
       //Open settings again
       await wait(() => {
           fireEvent.click(getByRole("settings-mapping"));
-      })
+      });
 
       expect(getByText('Batch Size')).toBeInTheDocument();
       expect(getByPlaceholderText('Please enter batch size')).toHaveValue('50');
@@ -259,8 +259,8 @@ describe("Mapping Card component", () => {
       );
       getByText = renderResults.getByText;
       getByLabelText = renderResults.getByLabelText;
-      getByTestId = renderResults.getByTestId
-    })
+      getByTestId = renderResults.getByTestId;
+    });
 
     //Check if the card is rendered properly
     expect(getByText('Add New')).toBeInTheDocument();
@@ -293,7 +293,7 @@ describe("Mapping Card component", () => {
     //Check if the /tiles/run/add route has been called
     wait(() => {
       expect(mockHistoryPush).toHaveBeenCalledWith('/tiles/run/add');
-    })
+    });
     //TODO- E2E test to check if the Run tile is loaded or not.
 
   });
@@ -328,8 +328,9 @@ describe("Mapping Card component", () => {
       );
       getByText = renderResults.getByText;
       getByLabelText = renderResults.getByLabelText;
-      getByTestId = renderResults.getByTestId
-    })
+      getByTestId = renderResults.getByTestId;
+    });
+
 
     //Check if the card is rendered properly
     expect(getByText('Add New')).toBeInTheDocument();
@@ -347,7 +348,7 @@ describe("Mapping Card component", () => {
     //Wait for the route to be pushed into History( which means that the route is working fine. Remaining can be verified in E2E test)
     wait(() => {
       expect(mockHistoryPush).toHaveBeenCalledWith('/tiles/run/add');
-    })
+    });
 
   });
 

@@ -1,5 +1,4 @@
 import React from "react";
-import {waitForElement} from "@testing-library/react";
 
 class RunPage {
 
@@ -68,7 +67,7 @@ class RunPage {
     }
 
     explorerLink() {
-      return cy.findByTestId('explorer-link')
+      return cy.findByTestId('explorer-link');
     }
 }
 

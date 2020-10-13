@@ -3,11 +3,11 @@ import {Button, Modal, Tooltip} from 'antd';
 import { UserContext } from '../../util/user-context';
 import { SearchContext } from '../../util/search-context';
 import SelectedFacets from '../../components/selected-facets/selected-facets';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faSave, faCopy, faUndo, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faSave, faCopy, faUndo, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import SaveQueryModal from "../../components/queries/saving/save-query-modal/save-query-modal";
 import SaveQueriesDropdown from "../../components/queries/saving/save-queries-dropdown/save-queries-dropdown";
-import { fetchQueries, creatNewQuery, fetchQueryById } from '../../api/queries'
+import { fetchQueries, creatNewQuery, fetchQueryById } from '../../api/queries';
 import styles from './queries.module.scss';
 import QueryModal from '../../components/queries/managing/manage-query-modal/manage-query';
 import { AuthoritiesContext } from "../../util/authorities";
@@ -31,7 +31,7 @@ interface Props {
     setQueries: (state: boolean) => void;
     setIsLoading: (state: boolean) => void;
     database: string;
-};
+}
 
 const Query: React.FC<Props> = (props) => {
 
@@ -46,7 +46,6 @@ const Query: React.FC<Props> = (props) => {
         setEntity,
         setNextEntity,
         setZeroState,
-        setQuery
     } = useContext(SearchContext);
 
     const [openSaveModal, setOpenSaveModal] = useState(false);
@@ -67,7 +66,7 @@ const Query: React.FC<Props> = (props) => {
     const [showEntityConfirmation, toggleEntityConfirmation] = useState(false);
     const [entityQueryUpdate, toggleEntityQueryUpdate] = useState(false);
     const [entityCancelClicked, toggleEntityCancelClicked] = useState(false);
-    const [resetQueryIcon, setResetQueryIcon] = useState(true);
+    const [resetQueryIcon,, ] = useState(true);
     const [showResetQueryNewConfirmation, toggleResetQueryNewConfirmation] = useState(false);
     const [showResetQueryEditedConfirmation, toggleResetQueryEditedConfirmation] = useState(false);
 
@@ -90,12 +89,12 @@ const Query: React.FC<Props> = (props) => {
                 propertiesToDisplay: searchOptions.selectedTableProperties,
                 sortOrder: searchOptions.sortOrder
             }
-        }
+        };
         props.setIsLoading(true);
         await creatNewQuery(query);
         setOpenSaveModal(false);
         getSaveQueries();
-    }
+    };
 
     const getSaveQueries = async () => {
         try {
@@ -106,9 +105,9 @@ const Query: React.FC<Props> = (props) => {
                 }
             }
         } catch (error) {
-            handleError(error)
+            handleError(error);
         }
-    }
+    };
 
     const getSaveQueryWithId = async (key) => {
        try {
@@ -125,7 +124,7 @@ const Query: React.FC<Props> = (props) => {
                        manageQueryModal: searchOptions.manageQueryModal,
                        sortOrder: response.data.savedQuery.sortOrder,
                        database: searchOptions.database,
-                   }
+                   };
                    applySaveQuery(options);
                    setCurrentQuery(response.data);
                    if(props.greyFacets.length > 0){
@@ -140,9 +139,9 @@ const Query: React.FC<Props> = (props) => {
                }
            }
        } catch (error) {
-           handleError(error)
+           handleError(error);
        }
-   }
+   };
 
     const isSaveQueryChanged = () => {
         if (currentQuery && currentQuery.hasOwnProperty('savedQuery') && currentQuery.savedQuery.hasOwnProperty('query')) {
@@ -156,7 +155,7 @@ const Query: React.FC<Props> = (props) => {
             }
         }
         return false;
-    }
+    };
 
     const isNewQueryChanged = () => {
         if (currentQuery && Object.keys(currentQuery).length === 0) {
@@ -168,7 +167,7 @@ const Query: React.FC<Props> = (props) => {
             }
         }
         return false;
-    }
+    };
 
     useEffect(() => {
         if (props.queries.length > 0) {
@@ -187,7 +186,7 @@ const Query: React.FC<Props> = (props) => {
 
     useEffect(() => {
         initializeUserPreferences();
-    },[])
+    },[]);
 
     useEffect(() => {
             if(!entityCancelClicked && searchOptions.nextEntityType !== searchOptions.entityTypeIds[0]) {
@@ -216,19 +215,19 @@ const Query: React.FC<Props> = (props) => {
                 }
             }
         }
-    }
+    };
 
     // Switching between entity confirmation modal buttons
     const onCancel = () => {
         toggleEntityConfirmation(false);
         toggleEntityCancelClicked(true);
         setNextEntity(searchOptions.entityTypeIds[0]);
-    }
+    };
 
     const onNoClick  = () => {
         toggleEntityConfirmation(false);
         setCurrentQueryOnEntityChange();
-    }
+    };
 
     const onOk = () => {
     if (Object.keys(currentQuery).length === 0) {
@@ -240,22 +239,22 @@ const Query: React.FC<Props> = (props) => {
         toggleEntityConfirmation(false);
         toggleEntityQueryUpdate(true);
         }
-    }
+    };
 
     const setCurrentQueryOnEntityChange = () => {
         setEntity(searchOptions.nextEntityType);
         toggleSaveNewIcon(false);
-        props.setColumnSelectorTouched(false)
+        props.setColumnSelectorTouched(false);
         setCurrentQuery({});
         setCurrentQueryName('select a query');
         setCurrentQueryDescription('');
-    }
+    };
 
    // Reset confirmation modal buttons when making changes to saved query
     const onResetCancel = () => {
         toggleResetQueryNewConfirmation(false);
         toggleResetQueryEditedConfirmation(false);
-    }
+    };
 
     const onResetOk = () => {
         if(showResetQueryNewConfirmation){
@@ -268,7 +267,7 @@ const Query: React.FC<Props> = (props) => {
         }
         toggleResetQueryNewConfirmation(false);
         toggleResetQueryEditedConfirmation(false);
-    }
+    };
 
     const onNoResetClick = () => {
         setZeroState(true);
@@ -282,24 +281,24 @@ const Query: React.FC<Props> = (props) => {
             manageQueryModal: false,
             sortOrder: [],
             database: 'final',
-        }
+        };
         applySaveQuery(options);
         toggleResetQueryEditedConfirmation(false);
         toggleResetQueryNewConfirmation(false);
         props.setColumnSelectorTouched(false);
-    }
+    };
 
     const resetIconClicked = () => {
         const resetQueryEditedConfirmation = props.isSavedQueryUser && props.queries.length > 0
-                                            && searchOptions.selectedQuery !== 'select a query' && isSaveQueryChanged()
+                                            && searchOptions.selectedQuery !== 'select a query' && isSaveQueryChanged();
         const resetQueryNewConfirmation = props.isSavedQueryUser && props.queries.length > 0 && searchOptions.entityTypeIds.length > 0 &&
                                           (props.selectedFacets.length > 0 || searchOptions.query.length > 0
                                           || searchOptions.sortOrder.length > 0)
-                                          && searchOptions.selectedQuery === 'select a query'
+                                          && searchOptions.selectedQuery === 'select a query';
         if (resetQueryNewConfirmation) {
-            toggleResetQueryNewConfirmation(true)
+            toggleResetQueryNewConfirmation(true);
         } else if (resetQueryEditedConfirmation) {
-            toggleResetQueryEditedConfirmation(true)
+            toggleResetQueryEditedConfirmation(true);
         } else {
             setZeroState(true);
             let options: QueryOptions = {
@@ -312,11 +311,11 @@ const Query: React.FC<Props> = (props) => {
                 manageQueryModal: false,
                 sortOrder: [],
                 database: 'final',
-            }
+            };
             applySaveQuery(options);
             clearAllGreyFacets();
         }
-    }
+    };
 
     useEffect(() => {
         if (Object.entries(currentQuery).length !== 0 && searchOptions.selectedQuery !== 'select a query') {
@@ -342,7 +341,7 @@ const Query: React.FC<Props> = (props) => {
             toggleSaveNewIcon(true);
         }
 
-    }, [searchOptions, props.greyFacets, isSaveQueryChanged()])
+    }, [searchOptions, props.greyFacets, isSaveQueryChanged()]);
 
     return (
         <div>
@@ -618,6 +617,6 @@ const Query: React.FC<Props> = (props) => {
                 <p>Changing the entity selection starts a new query. Would you like to save the existing query before changing the selection?</p>
             </Modal>
         </div>
-    )
-}
+    );
+};
 export default Query;

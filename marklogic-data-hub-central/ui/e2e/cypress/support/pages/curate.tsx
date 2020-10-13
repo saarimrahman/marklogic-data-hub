@@ -87,15 +87,15 @@ class CuratePage {
     }
 
     saveEdit() {
-        return cy.findByTestId('mapping-dialog-save')
+        return cy.findByTestId('mapping-dialog-save');
     }
 
     cancelEdit() {
-        return cy.findByTestId('mapping-dialog-cancel')
+        return cy.findByTestId('mapping-dialog-cancel');
     }
 
     deleteMappingStepButton(stepName: string) {
-        return cy.findByTestId(`${stepName}-delete`)
+        return cy.findByTestId(`${stepName}-delete`);
     }
 
     deleteDisabled() {
@@ -103,7 +103,7 @@ class CuratePage {
     }
 
     addStepToFlowConfirmationMessage(stepName: string, flowName: string) {
-      return cy.findByText(`Are you sure you want to add "${stepName}" to flow "${flowName}"?`)
+      return cy.findByText(`Are you sure you want to add "${stepName}" to flow "${flowName}"?`);
     }
 
     confirmAddStepToFlow(stepName: string, flowName: string) {

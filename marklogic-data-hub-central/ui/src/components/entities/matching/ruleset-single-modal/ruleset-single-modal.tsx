@@ -3,7 +3,7 @@ import { Modal, Form, Input, Icon } from 'antd';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { MLButton, MLTooltip, MLSelect } from '@marklogic/design-system';
-import styles from './ruleset-single-modal.module.scss'
+import styles from './ruleset-single-modal.module.scss';
 import arrayIcon from '../../../../assets/icon_array.png';
 
 import EntityPropertyTreeSelect from '../../../entity-property-tree-select/entity-property-tree-select';
@@ -32,7 +32,7 @@ const MATCH_TYPE_OPTIONS = [
   { name: 'Synonym', value: 'synonym' },
   { name: 'Reduce', value: 'reduce' },
   { name: 'Zip', value: 'zip' },
-]
+];
 
 const { MLOption } = MLSelect;
  
@@ -43,12 +43,12 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
 
   const [selectedProperty, setSelectedProperty] = useState<string | undefined>(undefined);
   const [propertyTypeErrorMessage, setPropertyTypeErrorMessage] = useState('');
-  const [matchType, setMatchType] = useState('')
+  const [matchType, setMatchType] = useState('');
   const [matchTypeErrorMessage, setMatchTypeErrorMessage] = useState('');
 
   const [thesaurusValue, setThesaurusValue] = useState('');
   const [thesaurusErrorMessage, setThesaurusErrorMessage] = useState('');
-  const [filterValue, setFilterValue] = useState('')
+  const [filterValue, setFilterValue] = useState('');
 
   useEffect(() => {
     if (props.isVisible && curationOptions.entityDefinitionsArray.length > 0 && curationOptions.activeStep.entityName !== '') {
@@ -60,7 +60,7 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
   const handleInputChange = (event) => {
     if (event.target.id === 'thesaurus-uri-input') {
       if (event.target.value === '') {
-        setThesaurusErrorMessage('A thesaurus URI is required')
+        setThesaurusErrorMessage('A thesaurus URI is required');
       } else {
         setThesaurusErrorMessage('');
       }
@@ -68,12 +68,12 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
     } else if (event.target.id === 'filter-input') {
       setFilterValue(event.target.value);
     }    
-  }
+  };
 
   const closeModal = () => {
     resetModal();
     props.toggleModal(false);
-  }
+  };
 
   const resetModal = () => {
     setSelectedProperty(undefined);
@@ -83,7 +83,7 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
     setThesaurusValue('');
     setThesaurusErrorMessage('');
     setFilterValue('');
-  }
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -107,13 +107,13 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
             entityPropertyPath: propertyName,
             matchType: matchType,
             options: {}
-          }
+          };
   
           let matchRuleset: MatchRuleset = {
             name: propertyName,
             weight: 0,
             matchRules: [matchRule]
-          }
+          };
   
           if (propertyErrorMessage === '' && matchErrorMessage === '') {
             // TODO save step to backend
@@ -142,13 +142,13 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
               thesaurusUri: thesaurusValue,
               filter: filterValue
             }
-          }
+          };
   
           let matchRuleset: MatchRuleset = {
             name: propertyName,
             weight: 0,
             matchRules: [synonymMatchRule]
-          }
+          };
   
           if (thesaurusErrorMessage === '' && propertyErrorMessage === '') {
             // TODO save step to backend
@@ -167,20 +167,20 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
     }
     setMatchTypeErrorMessage(matchErrorMessage);
     setPropertyTypeErrorMessage(propertyErrorMessage);
-  }
+  };
 
   const onPropertySelect = (value: string) => {
     setPropertyTypeErrorMessage('');
     setSelectedProperty(value);
-  }
+  };
 
   const onMatchTypeSelect = (value: string) => {
     setMatchTypeErrorMessage('');
     setMatchType(value);  
-  }
+  };
 
   const renderMatchOptions = MATCH_TYPE_OPTIONS.map((matchType, index) => {
-    return <MLOption key={index} value={matchType.value}>{matchType.name}</MLOption>
+    return <MLOption key={index} value={matchType.value}>{matchType.name}</MLOption>;
   });
 
   const renderSynonymOptions = (
@@ -230,7 +230,7 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
           </MLTooltip>
       </Form.Item>
     </>
-  )
+  );
 
   const modalTitle = (
     <div>
@@ -240,7 +240,7 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
         <div className={styles.legendText}><FontAwesomeIcon className={styles.structuredIcon} icon={faLayerGroup}/> Structured Type</div>
       </div>
     </div>
-  )
+  );
 
   const modalFooter = (
     <div className={styles.footer}>
@@ -255,7 +255,7 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
         onClick={(e) => onSubmit(e)}
       >Save</MLButton>
     </div>
-  )
+  );
 
   return (
     <Modal
@@ -317,7 +317,7 @@ const MatchRulesetModal: React.FC<Props> = (props) => {
         {modalFooter}
       </Form>
     </Modal>
-  )
-}
+  );
+};
 
 export default MatchRulesetModal;

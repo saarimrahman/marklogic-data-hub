@@ -1511,7 +1511,7 @@ export const entitySearch = {
       ]
     }
   ]
-}
+};
 
 
 export const  selectedPropertyDefinitions = [
@@ -1625,7 +1625,7 @@ export const  selectedPropertyDefinitions = [
       }
     ]
   }
-]
+];
 
 export const entityPropertyDefinitions =  [
   {
@@ -1778,7 +1778,7 @@ export const entityPropertyDefinitions =  [
       }
     ]
   }
-]
+];
 
 export const entitySearchAllEntities = {
   "snippet-format": "snippet",
@@ -1904,7 +1904,7 @@ export const entitySearchAllEntities = {
           }
         ]
       }
-    }]}
+    }]};
 
 
 export const entityDefArray = [{
@@ -1972,7 +1972,7 @@ export const entityDefArray = [{
       ref: "Order"
     }],
   rangeIndex: []
-}]
+}];
 
 
 

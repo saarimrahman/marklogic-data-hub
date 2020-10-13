@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Menu } from 'antd';
 import { MLRadio } from '@marklogic/design-system';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThLarge, faTable } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +16,7 @@ const SwitchView: React.FC<Props> = (props) => {
     const onChange = (val) => {
         setView(val);
         props.handleSelection(val);
-    }
+    };
 
     return (
         <div aria-label="switch-view" className={styles.switchView}>
@@ -39,6 +38,6 @@ const SwitchView: React.FC<Props> = (props) => {
         </div>
 
     );
-}
+};
 
 export default SwitchView;

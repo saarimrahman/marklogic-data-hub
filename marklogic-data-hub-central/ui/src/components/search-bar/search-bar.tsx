@@ -12,7 +12,7 @@ interface Props {
 const SearchBar: React.FC<Props> = props => {
     const { Search } = Input;
     const { Option } = Select;
-    const { searchOptions, setQuery, setEntity, setNextEntity } = useContext(SearchContext);
+    const { searchOptions, setQuery, setNextEntity } = useContext(SearchContext);
     const [ searchString, setSearchString] = useState(searchOptions.query);
     const [dropDownValue, setDropdownValue] = useState('All Entities');
     const dividerOption = <Divider className={styles.dividerOption}/>;
@@ -44,18 +44,18 @@ const SearchBar: React.FC<Props> = props => {
         setNextEntity(option);
         props.setCardView(false);
       }
-  }
+  };
 
     const handleSearch = (searchString: string) => {
       setQuery(searchString);
-    }
+    };
 
     const onChange = (e) => {
       setSearchString(e.target.value);
       if (searchOptions.query !== '' && e.target.value === '') {
         setQuery(e.target.value);
       }
-    }
+    };
 
     useEffect(() => {
       if (searchString !== searchOptions.query) {
@@ -88,7 +88,7 @@ const SearchBar: React.FC<Props> = props => {
                 />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default SearchBar;

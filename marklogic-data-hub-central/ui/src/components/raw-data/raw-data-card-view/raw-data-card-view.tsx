@@ -15,10 +15,10 @@ const RawDataCardView = (props) => {
   const authorityService = useContext(AuthoritiesContext);
 
   const handleDetailViewNavigation = () => {
-  }
+  };
 
   const displayDocumentMetadata = () => {
-  }
+  };
 
   // Custom CSS for source Format
   const sourceFormatStyle = (sourceFmt) => {
@@ -36,13 +36,13 @@ const RawDataCardView = (props) => {
       color: '#ffffff',
       verticalAlign: 'middle',
       marginRight: '8px'
-    }
+    };
     return customStyles;
-  }
+  };
 
   const displayUri = (uri) => {
-    return formatCardUri(uri)
-  }
+    return formatCardUri(uri);
+  };
 
   const displaySnippet = (item) => {
     if (['json', 'xml', 'text'].includes(item.format)) {
@@ -50,12 +50,12 @@ const RawDataCardView = (props) => {
       item.matches.forEach(item => {
         item['match-text'].forEach(element => {
           if (typeof element === 'object') {
-            str = str.concat('<b>').concat(element.highlight).concat('</b>').concat('...')
+            str = str.concat('<b>').concat(element.highlight).concat('</b>').concat('...');
           } else {
-            str = str.concat(element)
+            str = str.concat(element);
           }
         });
-      })
+      });
       return <p>{ReactHtmlParser(str)}</p>;
     } else if ('binary' === item.format) {
       return (
@@ -63,9 +63,9 @@ const RawDataCardView = (props) => {
           <FileOutlined className={styles.binaryIcon} />
           <div className={styles.binaryText} data-testid={item.uri + '-noPreview'}> No preview available</div>
         </div>
-      )
+      );
     }
-  }
+  };
 
   return (
     <div id="raw-data-card" aria-label="raw-data-card" className={styles.rawDataCard}>
@@ -106,6 +106,6 @@ const RawDataCardView = (props) => {
   );
 
 
-}
+};
 
 export default RawDataCardView;
